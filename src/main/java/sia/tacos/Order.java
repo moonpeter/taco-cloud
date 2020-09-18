@@ -2,9 +2,13 @@ package sia.tacos;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class Order {
 
+    private Long id;
+    private Date placedAt;
     private String deliveryName;
     private String deliveryStreet;
     private String deliveryCity;
