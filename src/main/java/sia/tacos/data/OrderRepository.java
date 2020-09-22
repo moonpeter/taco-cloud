@@ -1,7 +1,8 @@
 package sia.tacos.data;
 
-import org.springframework.core.annotation.Order;
+import org.springframework.data.repository.CrudRepository;
+import sia.tacos.Order;
 
-public interface OrderRepository {
-    Order save(Order order);
+
+public interface OrderRepository extends CrudRepository<Order, Long> {
 }

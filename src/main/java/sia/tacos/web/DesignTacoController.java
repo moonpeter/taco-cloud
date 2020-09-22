@@ -2,18 +2,19 @@ package sia.tacos.web;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import sia.tacos.Ingredient;
 import sia.tacos.Ingredient.Type;
+import sia.tacos.Order;
 import sia.tacos.Taco;
 import sia.tacos.data.IngredientRepository;
 import sia.tacos.data.TacoRepository;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,13 +29,15 @@ public class DesignTacoController {
     private TacoRepository tacoRepo;
 
     @Autowired
-    public DesignTacoController(IngredientRepository ingredientRepo, TacoRepository tacoRepo) {
+    public DesignTacoController(
+            IngredientRepository ingredientRepo, TacoRepository tacoRepo) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepo = tacoRepo;
     }
 
     @GetMapping
     public String showDesignForm(Model model) {
+
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(i -> ingredients.add(i));
 
@@ -67,12 +70,10 @@ public class DesignTacoController {
         return new Taco();
     }
 
-
     @PostMapping
     public String processDesign(
             @Valid Taco design,
             Errors errors, @ModelAttribute Order order) {
-
         if (errors.hasErrors()) {
             return "design";
         }
@@ -82,4 +83,5 @@ public class DesignTacoController {
 
         return "redirect:/orders/current";
     }
+
 }
