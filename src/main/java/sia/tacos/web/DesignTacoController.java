@@ -10,10 +10,13 @@ import sia.tacos.Ingredient;
 import sia.tacos.Ingredient.Type;
 import sia.tacos.Order;
 import sia.tacos.Taco;
+import sia.tacos.User;
 import sia.tacos.data.IngredientRepository;
 import sia.tacos.data.TacoRepository;
+import sia.tacos.data.UserRepository;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,15 +31,18 @@ public class DesignTacoController {
 
     private TacoRepository tacoRepo;
 
+    private UserRepository userRepo;
+
     @Autowired
     public DesignTacoController(
-            IngredientRepository ingredientRepo, TacoRepository tacoRepo) {
+            IngredientRepository ingredientRepo, TacoRepository tacoRepo, UserRepository userRepo) {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepo = tacoRepo;
+        this.userRepo = userRepo;
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
 
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepo.findAll().forEach(i -> ingredients.add(i));
@@ -47,7 +53,9 @@ public class DesignTacoController {
                     filterByType(ingredients, type));
         }
 
-        model.addAttribute("taco", new Taco());
+        String username = principal.getName();
+        User user = userRepo.findByUsername(username);
+        model.addAttribute("user", user);
 
         return "design";
     }
