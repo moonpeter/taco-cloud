@@ -3,6 +3,7 @@ package sia.tacos.web;
 import javax.validation.Valid;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,12 @@ public class OrderController {
         }
 
         return "orderForm";
+    }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("orders", orderRepo.findByUserOrderByPlacedAtDesc(user));
+        return "orderList";
     }
 
     @PostMapping
