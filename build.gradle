@@ -28,6 +28,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-ldap')
     compile group: 'org.springframework.ldap', name: 'spring-ldap-core'
     compile group: 'org.springframework.security', name: 'spring-security-ldap'
+    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor'
 
     implementation 'junit:junit:4.12'
     implementation 'org.jetbrains:annotations:19.0.0'
