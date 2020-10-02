@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TacoResource extends ResourceSupport {
-    
+
     @Getter
     private final String name;
 
