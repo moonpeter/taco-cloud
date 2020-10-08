@@ -17,7 +17,7 @@ public class TacoResource extends ResourceSupport {
     @Getter
     private final Date createdAt;
 
-    
+
     @Getter
     private final List<IngredientResource> ingredients;
 }
