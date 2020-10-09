@@ -13,7 +13,7 @@ public class IngredientResourceAssembler extends ResourceAssemblerSupport<Ingred
         return createResourceWithId(ingredient.getId(), ingredient);
     }
 
-    
+
     @Override
     protected IngredientResource ingredientResource(Ingredient ingredient) {
         return new IngredientResource(ingredient);
